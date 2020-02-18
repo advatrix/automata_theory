@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="38137c34-bf0d-470e-9973-1d104ab2d853" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1XwYKpuOH3hGHAw1bEqtKOXWBIr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Python" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="AT_lab1_regex" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="regex" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AT_lab1_regex" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/regex.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="AT_lab1_regex" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <module name="AT_lab1_regex" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="AT_lab1_regex" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.regex" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38137c34-bf0d-470e-9973-1d104ab2d853" name="Default Changelist" comment="" />
+      <created>1581958562601</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581958562601</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1078" y="307" width="530" height="640" key="FileChooserDialogImpl" timestamp="1581959806044">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state x="1078" y="307" width="530" height="640" key="FileChooserDialogImpl/70.34.1850.1046@70.34.1850.1046" timestamp="1581959806044" />
+    <state width="1822" height="260" key="GridCell.Tab.0.bottom" timestamp="1582045558147">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1822" height="260" key="GridCell.Tab.0.bottom/70.34.1850.1046@70.34.1850.1046" timestamp="1582045558147" />
+    <state width="1822" height="260" key="GridCell.Tab.0.center" timestamp="1582045558146">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1822" height="260" key="GridCell.Tab.0.center/70.34.1850.1046@70.34.1850.1046" timestamp="1582045558146" />
+    <state width="1822" height="260" key="GridCell.Tab.0.left" timestamp="1582045558146">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1822" height="260" key="GridCell.Tab.0.left/70.34.1850.1046@70.34.1850.1046" timestamp="1582045558146" />
+    <state width="1822" height="260" key="GridCell.Tab.0.right" timestamp="1582045558146">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state width="1822" height="260" key="GridCell.Tab.0.right/70.34.1850.1046@70.34.1850.1046" timestamp="1582045558146" />
+    <state x="597" y="69" width="1269" height="912" key="SettingsEditor" timestamp="1581960323730">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state x="597" y="69" width="1269" height="912" key="SettingsEditor/70.34.1850.1046@70.34.1850.1046" timestamp="1581960323730" />
+    <state x="575" y="346" key="com.intellij.ide.util.TipDialog" timestamp="1582045636358">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state x="575" y="346" key="com.intellij.ide.util.TipDialog/70.34.1850.1046@70.34.1850.1046" timestamp="1582045636358" />
+    <state x="677" y="135" width="626" height="851" key="refactoring.ChangeSignatureDialog" timestamp="1581968020890">
+      <screen x="70" y="34" width="1850" height="1046" />
+    </state>
+    <state x="677" y="135" width="626" height="851" key="refactoring.ChangeSignatureDialog/70.34.1850.1046@70.34.1850.1046" timestamp="1581968020890" />
+  </component>
+</project>
