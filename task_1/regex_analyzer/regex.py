@@ -10,7 +10,7 @@ class EntityRedefiningError(RuntimeError):
 regex = r'(?i)(create \D[\w\._]*\(\D[\w\._]*(,\D[\w\._]*)*\))|(\D[\w\._]*( join \D[\w\>_]*)?)'
 
 
-class Storage():
+class Storage:
 
     _data = {}
 
@@ -43,9 +43,7 @@ class Storage():
                 ans.append(_name[0]+'.'+item)
                 ans.append(_name[1]+'.'+item)
             ans += list(set0 - set1)
-            return ans
-
-
+            print(ans)
 
     def analyze(self, expr):
         if re.match(expr, regex):
@@ -66,24 +64,7 @@ class Storage():
             sys.stderr.write('FAIL'+expr)
 
 
-
-
-
-def analyze(expr):
-    if re.match(expr, regex):
-        expr2 = expr.split()
-        if expr2[0] == 'create':
-            create(expr2[1:])
-
-
-        pass
-    else:
-        sys.stderr.write('FAIL: '+'expr')
-        return None
-
-
 if __name__ == '__main__':
     storage = Storage()
     for expr in input().split('\n'):
-        analyze(expr)
-
+        storage.analyze(expr)
