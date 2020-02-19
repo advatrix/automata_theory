@@ -1,7 +1,11 @@
 import random
+
+
+
 class Generator:
 
     def __init__(self, n, accuracy=0.8, target_file='out.txt'):
+        pass
 
     def generate(self):
         '''
