@@ -18,9 +18,9 @@ class Generator:
             tmp_string = generator.__next__()
             if random.random() > self._accuracy:
                 err_string = self.spoil(tmp_string)
-                ret.append(err_string)
+                ret.append(err_string+'\n')
             else:
-                ret.append(tmp_string)
+                ret.append(tmp_string+'\n')
         with open(target_file, 'w+') as f:
             f.writelines(ret)
 
@@ -31,9 +31,9 @@ class Generator:
         for i in range(n_iterations):
             idx = random.randint(0, len(s) + 1)
             if idx == len(s):
-                s = random.choice(string.printable) + s
+                s.insert(0, random.choice(string.printable))
             elif idx == len(s) + 1:
-                s += random.choice(string.printable)
+                s.append(random.choice(string.printable))
             else:
                 s[idx] = random.choice(string.printable)
         return "".join(s)
