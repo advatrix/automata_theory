@@ -21,7 +21,7 @@ class Generator:
                 ret.append(err_string)
             else:
                 ret.append(tmp_string)
-        with open(target_file) as f:
+        with open(target_file, 'w+') as f:
             f.writelines(ret)
 
     @staticmethod
@@ -40,7 +40,7 @@ class Generator:
 
 
 if __name__ == '__main__':
-    regex, n, target_file, accuracy = input()
+    regex, n, target_file, accuracy = input().split()
     n = int(n)
     accuracy = float(accuracy)
     random.seed()
