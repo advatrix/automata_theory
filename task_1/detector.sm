@@ -1,0 +1,16 @@
+%class Detector
+
+%start MainMap::Gnd
+
+%map MainMap
+%%
+Gnd {
+	letter nil {
+		cntr += 1
+		cmd.append(letter)
+	}
+	digit[cntr] nil {
+		cntr += 1
+		cmd.append(digit)
+	}
+	
