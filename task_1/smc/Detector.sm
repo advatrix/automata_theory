@@ -1,0 +1,155 @@
+%class Detector
+
+%start MainMap::Gnd
+
+%map MainMap
+%%
+
+// inc_counter() increases counter
+// cmd_update() updates command (appends new letter)
+// counter() returns True if it's not equal to zero
+// cmd_is_create() returns True if cmd == 'create'
+// var_update() updates var
+// set_create_flag() & reset_create_flag work with 'create' flag
+// var_is_join() return True if var is 'join'
+// args() returns True is there are any args in 'create' cmd
+
+Gnd {
+	letter(lt: String) nil {
+		inc_counter();
+		cmd_update(lt);
+	}
+	digit(lt: String)[ctxt.counter()] nil {
+		inc_counter();
+		cmd_update(lt);
+	}
+	space[ctxt.cmd_is_create()] push(CreateMap::Gnd) {} // expect 'create smth(args,)'
+	space[ctxt.counter()] push(JoinMap::Gnd) {} // expect 'one join another'
+	EOS[ctxt.counter()] Acceptable { // the cmd is 'smth'
+		set_out_flag();
+	} 
+	Default Error {}	
+}
+
+Error {
+	Default nil {}
+}
+
+Acceptable {
+	Default Error {}
+}
+
+%%
+
+%map CreateMap
+%%
+Gnd 
+Entry {
+	set_create_flag();
+	reset_counter();
+}
+Exit {
+	reset_create_flag();
+}
+{
+	letter(lt: String) nil {
+		var_update(lt);
+		inc_counter();
+	}
+
+	digit(lt: String)[ctxt.counter()] nil {
+		var_update(lt);
+		inc_counter();
+	}
+
+	obracket[ctxt.counter()] Args {
+		reset_counter();
+	}
+
+	space[ctxt.var_is_join()] push(JoinMap::OtherVar) {}
+
+	Default Error {}
+	
+}
+
+Args {
+	letter(lt: String) nil {
+		arg_update(lt);
+		inc_counter();
+	}
+
+	digit(lt: String)[ctxt.counter()] nil {
+		arg_update(lt);
+		inc_counter();
+	}
+
+	comma[ctxt.counter()] nil {
+		arg_append();
+		reset_counter();
+	}
+
+	cbracket[ctxt.args()] Acceptable {}
+}
+
+Acceptable {
+	EOS nil {}
+	Default Error {}
+}
+
+
+Error {
+	Default nil {}
+}
+%%
+
+
+%map JoinMap
+%%
+
+Gnd
+Entry {
+	set_join_flag();
+}
+{
+	letter(lt: String) nil {
+		join_update(lt);
+	}
+
+	space[ctxt.join_is_join()] OtherVar {
+		reset_counter();
+	}
+
+	Default Error {}	
+
+}
+
+OtherVar
+Entry {
+	set_join_flag();
+}
+{
+	letter(lt: String) nil {
+		other_var_update(lt);
+		inc_counter();
+	}
+	digit(lt: String)[ctxt.counter()] nil {
+		other_var_update(lt); 
+		inc_counter();
+	}
+	EOS Acceptable {
+		reset_counter();
+	}
+	Default Error {}
+}
+
+Error {
+	Default nil {}
+}
+
+Acceptable {
+	Default Error {}
+}
+
+%%
+		
+	
