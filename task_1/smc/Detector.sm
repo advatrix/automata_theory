@@ -67,12 +67,18 @@ Exit {
 	}
 
 	space[ctxt.var_is_join()] push(JoinMap::OtherVar) {}
+	
+	digit Error {}
 
 	Default Error {}
 	
 }
 
-Args {
+Args 
+Entry {
+    set_create_flag();
+}
+{
 	letter(lt: String) nil {
 		arg_update(lt);
 		inc_counter();
@@ -89,6 +95,14 @@ Args {
 	}
 
 	cbracket[ctxt.args()] Acceptable {}
+	
+	space Error {}
+	
+	digit Error {}
+	
+	cbracket Error {}
+	
+	Default Error {}
 }
 
 Acceptable {

@@ -23,6 +23,9 @@ class DetectorState(statemap.State):
     def comma(self, fsm):
         self.Default(fsm)
 
+    def digit(self, fsm):
+        self.Default(fsm)
+
     def digit(self, fsm, lt):
         self.Default(fsm)
 
@@ -140,6 +143,11 @@ class CreateMap_Gnd(CreateMap_Default):
         fsm.setState(CreateMap.Error)
         fsm.getState().Entry(fsm)
 
+    def digit(self, fsm):
+        fsm.getState().Exit(fsm)
+        fsm.setState(CreateMap.Error)
+        fsm.getState().Entry(fsm)
+
     def digit(self, fsm, lt):
         ctxt = fsm.getOwner()
         if ctxt.counter() :
@@ -188,6 +196,15 @@ class CreateMap_Gnd(CreateMap_Default):
         
 class CreateMap_Args(CreateMap_Default):
 
+    def Entry(self, fsm):
+        ctxt = fsm.getOwner()
+        ctxt.set_create_flag()
+
+    def Default(self, fsm):
+        fsm.getState().Exit(fsm)
+        fsm.setState(CreateMap.Error)
+        fsm.getState().Entry(fsm)
+
     def cbracket(self, fsm):
         ctxt = fsm.getOwner()
         if ctxt.args() :
@@ -197,8 +214,13 @@ class CreateMap_Args(CreateMap_Default):
             fsm.setState(CreateMap.Acceptable)
             fsm.getState().Entry(fsm)
         else:
-            CreateMap_Default.cbracket(self, fsm)
-        
+            fsm.getState().Exit(fsm)
+            # No actions.
+            pass
+            fsm.setState(CreateMap.Error)
+            fsm.getState().Entry(fsm)
+
+
     def comma(self, fsm):
         ctxt = fsm.getOwner()
         if ctxt.counter() :
@@ -212,6 +234,11 @@ class CreateMap_Args(CreateMap_Default):
         else:
             CreateMap_Default.comma(self, fsm)
         
+    def digit(self, fsm):
+        fsm.getState().Exit(fsm)
+        fsm.setState(CreateMap.Error)
+        fsm.getState().Entry(fsm)
+
     def digit(self, fsm, lt):
         ctxt = fsm.getOwner()
         if ctxt.counter() :
@@ -234,6 +261,11 @@ class CreateMap_Args(CreateMap_Default):
             ctxt.inc_counter()
         finally:
             fsm.setState(endState)
+
+    def space(self, fsm):
+        fsm.getState().Exit(fsm)
+        fsm.setState(CreateMap.Error)
+        fsm.getState().Entry(fsm)
 
 class CreateMap_Acceptable(CreateMap_Default):
 

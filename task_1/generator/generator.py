@@ -18,6 +18,7 @@ class Generator:
         ret = []
         # generator = exrex.generate(self._regex, self._n)
         for i in range(self._n):
+            print(str(i) + ' out of ' + str(self._n))
             # tmp_string = generator.__next__()
             tmp_string = exrex.getone(self._regex, self._length_limit)
             if random.random() > self._accuracy:
@@ -56,4 +57,3 @@ if __name__ == '__main__':
     random.seed()
     generator = Generator(regex, n, target_file, accuracy)
     generator.generate()
-
