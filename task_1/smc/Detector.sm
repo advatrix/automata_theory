@@ -31,7 +31,11 @@ Gnd {
 	Default Error {}	
 }
 
-Error {
+Error 
+Entry {
+	reset_out_flag();
+}
+{
 	Default nil {}
 }
 
@@ -94,7 +98,9 @@ Entry {
 		reset_counter();
 	}
 
-	cbracket[ctxt.args()] Acceptable {}
+	cbracket[ctxt.args() or ctxt.counter()] Acceptable {
+		arg_append();
+	}
 	
 	space Error {}
 	
@@ -111,7 +117,11 @@ Acceptable {
 }
 
 
-Error {
+Error 
+Entry {
+	reset_create_flag();
+}
+{
 	Default nil {}
 }
 %%
@@ -150,13 +160,17 @@ Entry {
 		other_var_update(lt); 
 		inc_counter();
 	}
-	EOS Acceptable {
+	EOS[ctxt.counter()] Acceptable {
 		reset_counter();
 	}
 	Default Error {}
 }
 
-Error {
+Error 
+Entry {
+	reset_join_flag();
+}
+{
 	Default nil {}
 }
 

@@ -78,7 +78,7 @@ class Detector:
         for c in string:
             if c.isdigit():
                 self._fsm.digit(c)
-            elif c.isalpha():
+            elif c.isalpha() or c == '.' or c == '_':
                 self._fsm.letter(c)
             elif c == ' ':
                 self._fsm.space()
@@ -91,13 +91,4 @@ class Detector:
             else:
                 self._fsm.Default()
         self._fsm.EOS()
-        return self._create_flag, self._out_flag, self._join_flag
-            
-            
-            
-            
-            
-
-
-
-
+        return self._create_flag, self._out_flag, self._join_flag           

@@ -1,6 +1,7 @@
 import re
 import sys
 from copy import copy
+import time
 
 
 class EntityRedefiningError(RuntimeError):
@@ -72,7 +73,9 @@ class Storage:
 
 if __name__ == '__main__':
     storage = Storage()
-    while True:
-        expr = input()
-        if expr is not None:
-            storage.analyze(expr)
+    start = time.time()
+    for expr in sys.stdin:
+        storage.analyze(expr[:-1])
+    end = time.time()
+    with open('time.txt', 'w+') as f:
+        f.write(str(end-start))

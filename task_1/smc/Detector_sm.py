@@ -106,6 +106,10 @@ class MainMap_Gnd(MainMap_Default):
         
 class MainMap_Error(MainMap_Default):
 
+    def Entry(self, fsm):
+        ctxt = fsm.getOwner()
+        ctxt.reset_out_flag()
+
     def Default(self, fsm):
         # No actions.
         pass
@@ -207,12 +211,14 @@ class CreateMap_Args(CreateMap_Default):
 
     def cbracket(self, fsm):
         ctxt = fsm.getOwner()
-        if ctxt.args() :
+        if ctxt.args() or ctxt.counter() :
             fsm.getState().Exit(fsm)
-            # No actions.
-            pass
-            fsm.setState(CreateMap.Acceptable)
-            fsm.getState().Entry(fsm)
+            fsm.clearState()
+            try:
+                ctxt.arg_append()
+            finally:
+                fsm.setState(CreateMap.Acceptable)
+                fsm.getState().Entry(fsm)
         else:
             fsm.getState().Exit(fsm)
             # No actions.
@@ -280,6 +286,10 @@ class CreateMap_Acceptable(CreateMap_Default):
 
 class CreateMap_Error(CreateMap_Default):
 
+    def Entry(self, fsm):
+        ctxt = fsm.getOwner()
+        ctxt.reset_create_flag()
+
     def Default(self, fsm):
         # No actions.
         pass
@@ -341,14 +351,17 @@ class JoinMap_OtherVar(JoinMap_Default):
 
     def EOS(self, fsm):
         ctxt = fsm.getOwner()
-        fsm.getState().Exit(fsm)
-        fsm.clearState()
-        try:
-            ctxt.reset_counter()
-        finally:
-            fsm.setState(JoinMap.Acceptable)
-            fsm.getState().Entry(fsm)
-
+        if ctxt.counter() :
+            fsm.getState().Exit(fsm)
+            fsm.clearState()
+            try:
+                ctxt.reset_counter()
+            finally:
+                fsm.setState(JoinMap.Acceptable)
+                fsm.getState().Entry(fsm)
+        else:
+            JoinMap_Default.EOS(self, fsm)
+        
     def digit(self, fsm, lt):
         ctxt = fsm.getOwner()
         if ctxt.counter() :
@@ -373,6 +386,10 @@ class JoinMap_OtherVar(JoinMap_Default):
             fsm.setState(endState)
 
 class JoinMap_Error(JoinMap_Default):
+
+    def Entry(self, fsm):
+        ctxt = fsm.getOwner()
+        ctxt.reset_join_flag()
 
     def Default(self, fsm):
         # No actions.

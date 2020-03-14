@@ -45,30 +45,33 @@ class Storage:
             ans += list(set1 - set0)
             print(ans)
 
+
     def analyze(self, expr_):
         detector = Detector.Detector()
         res = detector.checkstring(expr_)
         if res[0] or res[1] or res[2]:
             _expr = expr_.split()
-            if _expr[0] == 'create' and len(_expr) > 1 and '(' in _expr[1]:
+            if res[0]:
                 try:
                     self._create(_expr[1])
                     sys.stderr.write('SUCCESS ' + expr_ + '\n')
                 except EntityRedefiningError:
-                    sys.stderr.write('ERROR ' + expr_ + '\n')
+                    sys.stderr.write('REDEFINING ERROR ' + expr_ + '\n')
             else:
                 try:
                     self._output(_expr)
                     sys.stderr.write('SUCCESS ' + expr_ + '\n')
                 except AttributeError:
-                    sys.stderr.write('ERROR ' + expr_ + '\n')
+                    sys.stderr.write('ATTRIBUTE ERROR ' + expr_ + '\n')
         else:
-            sys.stderr.write('FAIL ' + expr_ + '\n')
+            sys.stderr.write('WRONG COMMAND ' + expr_ + '\n')
 
 
 if __name__ == '__main__':
     storage = Storage()
-    while True:
-        expr = input()
-        if expr is not None:
-            storage.analyze(expr)
+    start = time.time()
+    for expr in sys.stdin:
+        storage.analyze(expr[:-1])
+    end = time.time()
+    with open('time.txt', 'w+') as f:
+        f.write(str(end-start))
