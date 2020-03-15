@@ -19,59 +19,58 @@ class Parser():
 			sys.stderr.write('illegal token\n')
 			
 	def p_cmd(self, p):
-		'''cmd : create 
+		'''cmd : create
 		| out'''
 		p[0] = p[1]
 			
-		
 	def p_create(self, p):
-		'''create : CREATE VAR ARGS'''
+		'''create : CREATE VAR ARGS NL'''
 		p[0] = {'type': 'create','var': p[2], 'args': p[3]}
 		
-		
 	def p_out_create_var(self, p):
-		'out : CREATEVAR'
+		'out : CREATEVAR NL'
 		p[0] = {'type': 'out', 'var': 'create'}
 		
 	def p_out_create_join(self, p):
-		'out : CREATEJOIN VAR'
+		'out : CREATEJOIN VAR NL'
 		p[0] = {'type': 'join', 'var1': 'create', 'var2': p[2]}
 		
 	def p_out_var(self, p):
-		'out : VAR'
+		'out : VAR NL'
 		p[0] = {'type' : 'out', 'var': p[1]}
 		
 	def p_out_join(self, p):
-		'out : VAR JOIN VAR'
+		'out : VAR JOIN VAR NL'
 		p[0] = {'type': 'join', 'var1': p[1], 'var2': p[3]}
 	
 	def p_create_err_0(self, p):
-		'create : CREATE err_list'
+		'create : CREATE err_list NL'
 		p[0] = {'type': 'err', 'val': p[2]}
 		
 	def p_create_err_1(self, p):
-		'create : CREATE VAR err_list'
+		'create : CREATE VAR err_list NL'
 		p[0] = {'type': 'err', 'val': [p[2], p[3]]}
 		
+		
 	def p_create_err_2(self, p):
-		'create : CREATE VAR ARGS err_list'
+		'create : CREATE VAR ARGS err_list NL'
 		p[0] = {'type': 'err', 'val': [p[2], p[3], p[4]]}
 	
-	
 	def p_out_err_4(self, p):
-		'out : err_list'
+		'out : err_list NL'
 		p[0] = {'type': 'err', 'val': p[1]}
 	
 	def p_out_err_2(self, p):
-		'out : VAR err_list'
+		'out : VAR err_list NL'
 		p[0] = {'type': 'err', 'val': [p[1], p[2]]}
 	
+	
 	def p_out_err_1(self, p):
-		'out : VAR JOIN err_list'
+		'out : VAR JOIN err_list NL'
 		p[0] = {'type': 'err', 'val': [p[1], p[2], p[3]]}
 	
 	def p_out_err_0(self, p):
-		'out : VAR JOIN VAR err_list'
+		'out : VAR JOIN VAR err_list NL'
 		p[0] = {'type': 'err', 'val': [p[1], p[2], p[3], p[4]]}
 	
 	def p_err_list_3(self, p):
@@ -92,13 +91,10 @@ class Parser():
 		p[0] = p[1]
 		
 	def p_error(self, p):
-	    print('Unexpected token', p)
+	   	pass
 		
 			
 if __name__ == '__main__':
 	parser = Parser()
-	while True:
-		try:
-			print(parser.check_string(input()))
-		except EOFError:
-			break
+	for line in sys.stdin:
+		print(parser.check_string(line))

@@ -32,6 +32,7 @@ class Storage():
 				ans.append(var2 + '.' + item)
 			ans += list(set1 - set2)
 			ans += list(set2 - set1)
+			print(ans)
 		else:
 			raise AttributeError
 			
@@ -41,15 +42,38 @@ class Analyzer():
 		
 	def analyze(self, expr, st):
 		res = self._parser.check_string(expr)
+		if res is None:
+			sys.stderr.write('FAIL ' + expr)
+			return
 		if res['type'] == 'create':
 			try:
 				st.create(res['var'], res['args'][1:-1].split(','))
-				sys.stderr.write('SUCCESS ' + expr + '\n')
+				sys.stderr.write('SUCCESS ' + expr)
 			except EntityRedefiningError:
-				sys.sterr.write('REDEFINING ERROR
-				
+				sys.stderr.write('REDEFINING ERROR ' + expr)
 		elif res['type'] == 'out':
-			st.out(res['var'])
+			try:
+				st.out(res['var'])
+				sys.stderr.write('SUCCESS ' + expr)
+			except AttributeError:
+				sys.stderr.write('ATTRIBUTE ERROR ' + expr)
 		elif res['type'] == 'join':
+			try:
+				st.join(res['var1'], res['var2'])
+				sys.stderr.write('SUCCESS ' + expr)
+			except AttributeError:
+				sys.stderr.write('ATTRIBURE ERROR ' + expr)
+		elif res['type'] == 'err':
+			sys.stderr.write('FAIL ' + expr)
+				
+if __name__ == '__main__':
+	storage = Storage()
+	analyzer = Analyzer()
+	start = time.time()
+	for expr in sys.stdin:
+		analyzer.analyze(expr, storage)
+	end = time.time()
+	with open('time.txt', 'w+') as f:
+		f.write(str(end-start))
 			
 			

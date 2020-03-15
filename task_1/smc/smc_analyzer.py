@@ -1,4 +1,4 @@
-import Detector
+from Detector import Detector
 import sys
 from copy import copy
 import time
@@ -47,7 +47,7 @@ class Storage:
 
 
     def analyze(self, expr_):
-        detector = Detector.Detector()
+        detector = Detector()
         res = detector.checkstring(expr_)
         if res[0] or res[1] or res[2]:
             _expr = expr_.split()

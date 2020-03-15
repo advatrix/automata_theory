@@ -5,18 +5,18 @@ Grammar
 Rule 0     S' -> cmd
 Rule 1     cmd -> create
 Rule 2     cmd -> out
-Rule 3     create -> CREATE VAR ARGS
-Rule 4     out -> CREATEVAR
-Rule 5     out -> CREATEJOIN VAR
-Rule 6     out -> VAR
-Rule 7     out -> VAR JOIN VAR
-Rule 8     create -> CREATE err_list
-Rule 9     create -> CREATE VAR err_list
-Rule 10    create -> CREATE VAR ARGS err_list
-Rule 11    out -> err_list
-Rule 12    out -> VAR err_list
-Rule 13    out -> VAR JOIN err_list
-Rule 14    out -> VAR JOIN VAR err_list
+Rule 3     create -> CREATE VAR ARGS NL
+Rule 4     out -> CREATEVAR NL
+Rule 5     out -> CREATEJOIN VAR NL
+Rule 6     out -> VAR NL
+Rule 7     out -> VAR JOIN VAR NL
+Rule 8     create -> CREATE err_list NL
+Rule 9     create -> CREATE VAR err_list NL
+Rule 10    create -> CREATE VAR ARGS err_list NL
+Rule 11    out -> err_list NL
+Rule 12    out -> VAR err_list NL
+Rule 13    out -> VAR JOIN err_list NL
+Rule 14    out -> VAR JOIN VAR err_list NL
 Rule 15    err_list -> err_list err
 Rule 16    err_list -> <empty>
 Rule 17    err_list -> err
@@ -29,6 +29,7 @@ CREATE               : 3 8 9 10
 CREATEJOIN           : 5
 CREATEVAR            : 4
 JOIN                 : 7 13 14
+NL                   : 3 4 5 6 7 8 9 10 11 12 13 14
 UNKNOWN              : 18
 VAR                  : 3 5 6 7 7 9 10 12 13 14 14
 error                : 
@@ -48,18 +49,18 @@ state 0
     (0) S' -> . cmd
     (1) cmd -> . create
     (2) cmd -> . out
-    (3) create -> . CREATE VAR ARGS
-    (8) create -> . CREATE err_list
-    (9) create -> . CREATE VAR err_list
-    (10) create -> . CREATE VAR ARGS err_list
-    (4) out -> . CREATEVAR
-    (5) out -> . CREATEJOIN VAR
-    (6) out -> . VAR
-    (7) out -> . VAR JOIN VAR
-    (11) out -> . err_list
-    (12) out -> . VAR err_list
-    (13) out -> . VAR JOIN err_list
-    (14) out -> . VAR JOIN VAR err_list
+    (3) create -> . CREATE VAR ARGS NL
+    (8) create -> . CREATE err_list NL
+    (9) create -> . CREATE VAR err_list NL
+    (10) create -> . CREATE VAR ARGS err_list NL
+    (4) out -> . CREATEVAR NL
+    (5) out -> . CREATEJOIN VAR NL
+    (6) out -> . VAR NL
+    (7) out -> . VAR JOIN VAR NL
+    (11) out -> . err_list NL
+    (12) out -> . VAR err_list NL
+    (13) out -> . VAR JOIN err_list NL
+    (14) out -> . VAR JOIN VAR err_list NL
     (15) err_list -> . err_list err
     (16) err_list -> .
     (17) err_list -> . err
@@ -70,7 +71,7 @@ state 0
     CREATEVAR       shift and go to state 7
     CREATEJOIN      shift and go to state 8
     VAR             shift and go to state 5
-    $end            reduce using rule 16 (err_list -> .)
+    NL              reduce using rule 16 (err_list -> .)
     UNKNOWN         shift and go to state 10
 
   ! UNKNOWN         [ reduce using rule 16 (err_list -> .) ]
@@ -103,10 +104,10 @@ state 3
 
 state 4
 
-    (3) create -> CREATE . VAR ARGS
-    (8) create -> CREATE . err_list
-    (9) create -> CREATE . VAR err_list
-    (10) create -> CREATE . VAR ARGS err_list
+    (3) create -> CREATE . VAR ARGS NL
+    (8) create -> CREATE . err_list NL
+    (9) create -> CREATE . VAR err_list NL
+    (10) create -> CREATE . VAR ARGS err_list NL
     (15) err_list -> . err_list err
     (16) err_list -> .
     (17) err_list -> . err
@@ -114,7 +115,7 @@ state 4
 
   ! shift/reduce conflict for UNKNOWN resolved as shift
     VAR             shift and go to state 11
-    $end            reduce using rule 16 (err_list -> .)
+    NL              reduce using rule 16 (err_list -> .)
     UNKNOWN         shift and go to state 10
 
   ! UNKNOWN         [ reduce using rule 16 (err_list -> .) ]
@@ -124,242 +125,323 @@ state 4
 
 state 5
 
-    (6) out -> VAR .
-    (7) out -> VAR . JOIN VAR
-    (12) out -> VAR . err_list
-    (13) out -> VAR . JOIN err_list
-    (14) out -> VAR . JOIN VAR err_list
+    (6) out -> VAR . NL
+    (7) out -> VAR . JOIN VAR NL
+    (12) out -> VAR . err_list NL
+    (13) out -> VAR . JOIN err_list NL
+    (14) out -> VAR . JOIN VAR err_list NL
     (15) err_list -> . err_list err
     (16) err_list -> .
     (17) err_list -> . err
     (18) err -> . UNKNOWN
 
-  ! reduce/reduce conflict for $end resolved using rule 6 (out -> VAR .)
+  ! shift/reduce conflict for NL resolved as shift
   ! shift/reduce conflict for UNKNOWN resolved as shift
-    $end            reduce using rule 6 (out -> VAR .)
-    JOIN            shift and go to state 13
+    NL              shift and go to state 13
+    JOIN            shift and go to state 14
     UNKNOWN         shift and go to state 10
 
+  ! NL              [ reduce using rule 16 (err_list -> .) ]
   ! UNKNOWN         [ reduce using rule 16 (err_list -> .) ]
-  ! $end            [ reduce using rule 16 (err_list -> .) ]
 
-    err_list                       shift and go to state 14
+    err_list                       shift and go to state 15
     err                            shift and go to state 9
 
 state 6
 
-    (11) out -> err_list .
+    (11) out -> err_list . NL
     (15) err_list -> err_list . err
     (18) err -> . UNKNOWN
 
-    $end            reduce using rule 11 (out -> err_list .)
+    NL              shift and go to state 16
     UNKNOWN         shift and go to state 10
 
-    err                            shift and go to state 15
+    err                            shift and go to state 17
 
 state 7
 
-    (4) out -> CREATEVAR .
+    (4) out -> CREATEVAR . NL
 
-    $end            reduce using rule 4 (out -> CREATEVAR .)
+    NL              shift and go to state 18
 
 
 state 8
 
-    (5) out -> CREATEJOIN . VAR
+    (5) out -> CREATEJOIN . VAR NL
 
-    VAR             shift and go to state 16
+    VAR             shift and go to state 19
 
 
 state 9
 
     (17) err_list -> err .
 
+    NL              reduce using rule 17 (err_list -> err .)
     UNKNOWN         reduce using rule 17 (err_list -> err .)
-    $end            reduce using rule 17 (err_list -> err .)
 
 
 state 10
 
     (18) err -> UNKNOWN .
 
+    NL              reduce using rule 18 (err -> UNKNOWN .)
     UNKNOWN         reduce using rule 18 (err -> UNKNOWN .)
-    $end            reduce using rule 18 (err -> UNKNOWN .)
 
 
 state 11
 
-    (3) create -> CREATE VAR . ARGS
-    (9) create -> CREATE VAR . err_list
-    (10) create -> CREATE VAR . ARGS err_list
+    (3) create -> CREATE VAR . ARGS NL
+    (9) create -> CREATE VAR . err_list NL
+    (10) create -> CREATE VAR . ARGS err_list NL
     (15) err_list -> . err_list err
     (16) err_list -> .
     (17) err_list -> . err
     (18) err -> . UNKNOWN
 
   ! shift/reduce conflict for UNKNOWN resolved as shift
-    ARGS            shift and go to state 17
-    $end            reduce using rule 16 (err_list -> .)
+    ARGS            shift and go to state 20
+    NL              reduce using rule 16 (err_list -> .)
     UNKNOWN         shift and go to state 10
 
   ! UNKNOWN         [ reduce using rule 16 (err_list -> .) ]
-
-    err_list                       shift and go to state 18
-    err                            shift and go to state 9
-
-state 12
-
-    (8) create -> CREATE err_list .
-    (15) err_list -> err_list . err
-    (18) err -> . UNKNOWN
-
-    $end            reduce using rule 8 (create -> CREATE err_list .)
-    UNKNOWN         shift and go to state 10
-
-    err                            shift and go to state 15
-
-state 13
-
-    (7) out -> VAR JOIN . VAR
-    (13) out -> VAR JOIN . err_list
-    (14) out -> VAR JOIN . VAR err_list
-    (15) err_list -> . err_list err
-    (16) err_list -> .
-    (17) err_list -> . err
-    (18) err -> . UNKNOWN
-
-  ! shift/reduce conflict for UNKNOWN resolved as shift
-    VAR             shift and go to state 19
-    $end            reduce using rule 16 (err_list -> .)
-    UNKNOWN         shift and go to state 10
-
-  ! UNKNOWN         [ reduce using rule 16 (err_list -> .) ]
-
-    err_list                       shift and go to state 20
-    err                            shift and go to state 9
-
-state 14
-
-    (12) out -> VAR err_list .
-    (15) err_list -> err_list . err
-    (18) err -> . UNKNOWN
-
-    $end            reduce using rule 12 (out -> VAR err_list .)
-    UNKNOWN         shift and go to state 10
-
-    err                            shift and go to state 15
-
-state 15
-
-    (15) err_list -> err_list err .
-
-    UNKNOWN         reduce using rule 15 (err_list -> err_list err .)
-    $end            reduce using rule 15 (err_list -> err_list err .)
-
-
-state 16
-
-    (5) out -> CREATEJOIN VAR .
-
-    $end            reduce using rule 5 (out -> CREATEJOIN VAR .)
-
-
-state 17
-
-    (3) create -> CREATE VAR ARGS .
-    (10) create -> CREATE VAR ARGS . err_list
-    (15) err_list -> . err_list err
-    (16) err_list -> .
-    (17) err_list -> . err
-    (18) err -> . UNKNOWN
-
-  ! reduce/reduce conflict for $end resolved using rule 3 (create -> CREATE VAR ARGS .)
-  ! shift/reduce conflict for UNKNOWN resolved as shift
-    $end            reduce using rule 3 (create -> CREATE VAR ARGS .)
-    UNKNOWN         shift and go to state 10
-
-  ! UNKNOWN         [ reduce using rule 16 (err_list -> .) ]
-  ! $end            [ reduce using rule 16 (err_list -> .) ]
 
     err_list                       shift and go to state 21
     err                            shift and go to state 9
 
-state 18
+state 12
 
-    (9) create -> CREATE VAR err_list .
+    (8) create -> CREATE err_list . NL
     (15) err_list -> err_list . err
     (18) err -> . UNKNOWN
 
-    $end            reduce using rule 9 (create -> CREATE VAR err_list .)
+    NL              shift and go to state 22
     UNKNOWN         shift and go to state 10
 
-    err                            shift and go to state 15
+    err                            shift and go to state 17
 
-state 19
+state 13
 
-    (7) out -> VAR JOIN VAR .
-    (14) out -> VAR JOIN VAR . err_list
+    (6) out -> VAR NL .
+
+    $end            reduce using rule 6 (out -> VAR NL .)
+
+
+state 14
+
+    (7) out -> VAR JOIN . VAR NL
+    (13) out -> VAR JOIN . err_list NL
+    (14) out -> VAR JOIN . VAR err_list NL
     (15) err_list -> . err_list err
     (16) err_list -> .
     (17) err_list -> . err
     (18) err -> . UNKNOWN
 
-  ! reduce/reduce conflict for $end resolved using rule 7 (out -> VAR JOIN VAR .)
   ! shift/reduce conflict for UNKNOWN resolved as shift
-    $end            reduce using rule 7 (out -> VAR JOIN VAR .)
+    VAR             shift and go to state 23
+    NL              reduce using rule 16 (err_list -> .)
     UNKNOWN         shift and go to state 10
 
   ! UNKNOWN         [ reduce using rule 16 (err_list -> .) ]
-  ! $end            [ reduce using rule 16 (err_list -> .) ]
 
-    err_list                       shift and go to state 22
+    err_list                       shift and go to state 24
     err                            shift and go to state 9
+
+state 15
+
+    (12) out -> VAR err_list . NL
+    (15) err_list -> err_list . err
+    (18) err -> . UNKNOWN
+
+    NL              shift and go to state 25
+    UNKNOWN         shift and go to state 10
+
+    err                            shift and go to state 17
+
+state 16
+
+    (11) out -> err_list NL .
+
+    $end            reduce using rule 11 (out -> err_list NL .)
+
+
+state 17
+
+    (15) err_list -> err_list err .
+
+    NL              reduce using rule 15 (err_list -> err_list err .)
+    UNKNOWN         reduce using rule 15 (err_list -> err_list err .)
+
+
+state 18
+
+    (4) out -> CREATEVAR NL .
+
+    $end            reduce using rule 4 (out -> CREATEVAR NL .)
+
+
+state 19
+
+    (5) out -> CREATEJOIN VAR . NL
+
+    NL              shift and go to state 26
+
 
 state 20
 
-    (13) out -> VAR JOIN err_list .
-    (15) err_list -> err_list . err
+    (3) create -> CREATE VAR ARGS . NL
+    (10) create -> CREATE VAR ARGS . err_list NL
+    (15) err_list -> . err_list err
+    (16) err_list -> .
+    (17) err_list -> . err
     (18) err -> . UNKNOWN
 
-    $end            reduce using rule 13 (out -> VAR JOIN err_list .)
+  ! shift/reduce conflict for NL resolved as shift
+  ! shift/reduce conflict for UNKNOWN resolved as shift
+    NL              shift and go to state 27
     UNKNOWN         shift and go to state 10
 
-    err                            shift and go to state 15
+  ! NL              [ reduce using rule 16 (err_list -> .) ]
+  ! UNKNOWN         [ reduce using rule 16 (err_list -> .) ]
+
+    err_list                       shift and go to state 28
+    err                            shift and go to state 9
 
 state 21
 
-    (10) create -> CREATE VAR ARGS err_list .
+    (9) create -> CREATE VAR err_list . NL
     (15) err_list -> err_list . err
     (18) err -> . UNKNOWN
 
-    $end            reduce using rule 10 (create -> CREATE VAR ARGS err_list .)
+    NL              shift and go to state 29
     UNKNOWN         shift and go to state 10
 
-    err                            shift and go to state 15
+    err                            shift and go to state 17
 
 state 22
 
-    (14) out -> VAR JOIN VAR err_list .
+    (8) create -> CREATE err_list NL .
+
+    $end            reduce using rule 8 (create -> CREATE err_list NL .)
+
+
+state 23
+
+    (7) out -> VAR JOIN VAR . NL
+    (14) out -> VAR JOIN VAR . err_list NL
+    (15) err_list -> . err_list err
+    (16) err_list -> .
+    (17) err_list -> . err
+    (18) err -> . UNKNOWN
+
+  ! shift/reduce conflict for NL resolved as shift
+  ! shift/reduce conflict for UNKNOWN resolved as shift
+    NL              shift and go to state 30
+    UNKNOWN         shift and go to state 10
+
+  ! NL              [ reduce using rule 16 (err_list -> .) ]
+  ! UNKNOWN         [ reduce using rule 16 (err_list -> .) ]
+
+    err_list                       shift and go to state 31
+    err                            shift and go to state 9
+
+state 24
+
+    (13) out -> VAR JOIN err_list . NL
     (15) err_list -> err_list . err
     (18) err -> . UNKNOWN
 
-    $end            reduce using rule 14 (out -> VAR JOIN VAR err_list .)
+    NL              shift and go to state 32
     UNKNOWN         shift and go to state 10
 
-    err                            shift and go to state 15
+    err                            shift and go to state 17
+
+state 25
+
+    (12) out -> VAR err_list NL .
+
+    $end            reduce using rule 12 (out -> VAR err_list NL .)
+
+
+state 26
+
+    (5) out -> CREATEJOIN VAR NL .
+
+    $end            reduce using rule 5 (out -> CREATEJOIN VAR NL .)
+
+
+state 27
+
+    (3) create -> CREATE VAR ARGS NL .
+
+    $end            reduce using rule 3 (create -> CREATE VAR ARGS NL .)
+
+
+state 28
+
+    (10) create -> CREATE VAR ARGS err_list . NL
+    (15) err_list -> err_list . err
+    (18) err -> . UNKNOWN
+
+    NL              shift and go to state 33
+    UNKNOWN         shift and go to state 10
+
+    err                            shift and go to state 17
+
+state 29
+
+    (9) create -> CREATE VAR err_list NL .
+
+    $end            reduce using rule 9 (create -> CREATE VAR err_list NL .)
+
+
+state 30
+
+    (7) out -> VAR JOIN VAR NL .
+
+    $end            reduce using rule 7 (out -> VAR JOIN VAR NL .)
+
+
+state 31
+
+    (14) out -> VAR JOIN VAR err_list . NL
+    (15) err_list -> err_list . err
+    (18) err -> . UNKNOWN
+
+    NL              shift and go to state 34
+    UNKNOWN         shift and go to state 10
+
+    err                            shift and go to state 17
+
+state 32
+
+    (13) out -> VAR JOIN err_list NL .
+
+    $end            reduce using rule 13 (out -> VAR JOIN err_list NL .)
+
+
+state 33
+
+    (10) create -> CREATE VAR ARGS err_list NL .
+
+    $end            reduce using rule 10 (create -> CREATE VAR ARGS err_list NL .)
+
+
+state 34
+
+    (14) out -> VAR JOIN VAR err_list NL .
+
+    $end            reduce using rule 14 (out -> VAR JOIN VAR err_list NL .)
+
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
 WARNING: shift/reduce conflict for UNKNOWN in state 0 resolved as shift
 WARNING: shift/reduce conflict for UNKNOWN in state 4 resolved as shift
+WARNING: shift/reduce conflict for NL in state 5 resolved as shift
 WARNING: shift/reduce conflict for UNKNOWN in state 5 resolved as shift
 WARNING: shift/reduce conflict for UNKNOWN in state 11 resolved as shift
-WARNING: shift/reduce conflict for UNKNOWN in state 13 resolved as shift
-WARNING: shift/reduce conflict for UNKNOWN in state 17 resolved as shift
-WARNING: shift/reduce conflict for UNKNOWN in state 19 resolved as shift
-WARNING: reduce/reduce conflict in state 5 resolved using rule (out -> VAR)
-WARNING: rejected rule (err_list -> <empty>) in state 5
-WARNING: reduce/reduce conflict in state 17 resolved using rule (create -> CREATE VAR ARGS)
-WARNING: rejected rule (err_list -> <empty>) in state 17
-WARNING: reduce/reduce conflict in state 19 resolved using rule (out -> VAR JOIN VAR)
-WARNING: rejected rule (err_list -> <empty>) in state 19
+WARNING: shift/reduce conflict for UNKNOWN in state 14 resolved as shift
+WARNING: shift/reduce conflict for NL in state 20 resolved as shift
+WARNING: shift/reduce conflict for UNKNOWN in state 20 resolved as shift
+WARNING: shift/reduce conflict for NL in state 23 resolved as shift
+WARNING: shift/reduce conflict for UNKNOWN in state 23 resolved as shift

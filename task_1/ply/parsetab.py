@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ARGS CREATE CREATEJOIN CREATEVAR JOIN UNKNOWN VARcmd : create \n\t\t| outcreate : CREATE VAR ARGSout : CREATEVARout : CREATEJOIN VARout : VARout : VAR JOIN VARcreate : CREATE err_listcreate : CREATE VAR err_listcreate : CREATE VAR ARGS err_listout : err_listout : VAR err_listout : VAR JOIN err_listout : VAR JOIN VAR err_listerr_list : err_list errerr_list : err_list : errerr : UNKNOWN'
+_lr_signature = 'ARGS CREATE CREATEJOIN CREATEVAR JOIN NL UNKNOWN VARcmd : create\n\t\t| outcreate : CREATE VAR ARGS NLout : CREATEVAR NLout : CREATEJOIN VAR NLout : VAR NLout : VAR JOIN VAR NLcreate : CREATE err_list NLcreate : CREATE VAR err_list NLcreate : CREATE VAR ARGS err_list NLout : err_list NLout : VAR err_list NLout : VAR JOIN err_list NLout : VAR JOIN VAR err_list NLerr_list : err_list errerr_list : err_list : errerr : UNKNOWN'
     
-_lr_action_items = {'CREATE':([0,],[4,]),'CREATEVAR':([0,],[7,]),'CREATEJOIN':([0,],[8,]),'VAR':([0,4,8,13,],[5,11,16,19,]),'UNKNOWN':([0,4,5,6,9,10,11,12,13,14,15,17,18,19,20,21,22,],[10,10,10,10,-17,-18,10,10,10,10,-15,10,10,10,10,10,10,]),'$end':([0,1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,20,21,22,],[-16,0,-1,-2,-16,-6,-11,-4,-17,-18,-16,-8,-16,-12,-15,-5,-3,-9,-7,-13,-10,-14,]),'JOIN':([5,],[13,]),'ARGS':([11,],[17,]),}
+_lr_action_items = {'CREATE':([0,],[4,]),'CREATEVAR':([0,],[7,]),'CREATEJOIN':([0,],[8,]),'VAR':([0,4,8,14,],[5,11,19,23,]),'NL':([0,4,5,6,7,9,10,11,12,14,15,17,19,20,21,23,24,28,31,],[-16,-16,13,16,18,-17,-18,-16,22,-16,25,-15,26,27,29,30,32,33,34,]),'UNKNOWN':([0,4,5,6,9,10,11,12,14,15,17,20,21,23,24,28,31,],[10,10,10,10,-17,-18,10,10,10,10,-15,10,10,10,10,10,10,]),'$end':([1,2,3,13,16,18,22,25,26,27,29,30,32,33,34,],[0,-1,-2,-6,-11,-4,-8,-12,-5,-3,-9,-7,-13,-10,-14,]),'JOIN':([5,],[14,]),'ARGS':([11,],[20,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'cmd':([0,],[1,]),'create':([0,],[2,]),'out':([0,],[3,]),'err_list':([0,4,5,11,13,17,19,],[6,12,14,18,20,21,22,]),'err':([0,4,5,6,11,12,13,14,17,18,19,20,21,22,],[9,9,9,15,9,15,9,15,9,15,9,15,15,15,]),}
+_lr_goto_items = {'cmd':([0,],[1,]),'create':([0,],[2,]),'out':([0,],[3,]),'err_list':([0,4,5,11,14,20,23,],[6,12,15,21,24,28,31,]),'err':([0,4,5,6,11,12,14,15,20,21,23,24,28,31,],[9,9,9,17,9,17,9,17,9,17,9,17,17,17,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,22 +27,22 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> cmd","S'",1,None,None,None),
-  ('cmd -> create','cmd',1,'p_cmd','parser.py',23),
-  ('cmd -> out','cmd',1,'p_cmd','parser.py',24),
-  ('create -> CREATE VAR ARGS','create',3,'p_create','parser.py',29),
-  ('out -> CREATEVAR','out',1,'p_out_create_var','parser.py',34),
-  ('out -> CREATEJOIN VAR','out',2,'p_out_create_join','parser.py',38),
-  ('out -> VAR','out',1,'p_out_var','parser.py',42),
-  ('out -> VAR JOIN VAR','out',3,'p_out_join','parser.py',46),
-  ('create -> CREATE err_list','create',2,'p_create_err_0','parser.py',50),
-  ('create -> CREATE VAR err_list','create',3,'p_create_err_1','parser.py',54),
-  ('create -> CREATE VAR ARGS err_list','create',4,'p_create_err_2','parser.py',58),
-  ('out -> err_list','out',1,'p_out_err_4','parser.py',63),
-  ('out -> VAR err_list','out',2,'p_out_err_2','parser.py',67),
-  ('out -> VAR JOIN err_list','out',3,'p_out_err_1','parser.py',71),
-  ('out -> VAR JOIN VAR err_list','out',4,'p_out_err_0','parser.py',75),
-  ('err_list -> err_list err','err_list',2,'p_err_list_3','parser.py',79),
-  ('err_list -> <empty>','err_list',0,'p_err_list_2','parser.py',84),
-  ('err_list -> err','err_list',1,'p_err_list_1','parser.py',88),
-  ('err -> UNKNOWN','err',1,'p_err','parser.py',92),
+  ('cmd -> create','cmd',1,'p_cmd','parser.py',22),
+  ('cmd -> out','cmd',1,'p_cmd','parser.py',23),
+  ('create -> CREATE VAR ARGS NL','create',4,'p_create','parser.py',27),
+  ('out -> CREATEVAR NL','out',2,'p_out_create_var','parser.py',31),
+  ('out -> CREATEJOIN VAR NL','out',3,'p_out_create_join','parser.py',35),
+  ('out -> VAR NL','out',2,'p_out_var','parser.py',39),
+  ('out -> VAR JOIN VAR NL','out',4,'p_out_join','parser.py',43),
+  ('create -> CREATE err_list NL','create',3,'p_create_err_0','parser.py',47),
+  ('create -> CREATE VAR err_list NL','create',4,'p_create_err_1','parser.py',51),
+  ('create -> CREATE VAR ARGS err_list NL','create',5,'p_create_err_2','parser.py',56),
+  ('out -> err_list NL','out',2,'p_out_err_4','parser.py',60),
+  ('out -> VAR err_list NL','out',3,'p_out_err_2','parser.py',64),
+  ('out -> VAR JOIN err_list NL','out',4,'p_out_err_1','parser.py',69),
+  ('out -> VAR JOIN VAR err_list NL','out',5,'p_out_err_0','parser.py',73),
+  ('err_list -> err_list err','err_list',2,'p_err_list_3','parser.py',77),
+  ('err_list -> <empty>','err_list',0,'p_err_list_2','parser.py',82),
+  ('err_list -> err','err_list',1,'p_err_list_1','parser.py',86),
+  ('err -> UNKNOWN','err',1,'p_err','parser.py',90),
 ]

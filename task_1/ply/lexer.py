@@ -9,10 +9,10 @@ class Lexer():
 	)
 	
 	tokens = (
-		'CREATE', 'VAR', 'ARGS', 'JOIN', 'CREATEVAR', 'CREATEJOIN', 'UNKNOWN'
+		'CREATE', 'VAR', 'ARGS', 'JOIN', 'CREATEVAR', 'CREATEJOIN', 'UNKNOWN', 'NL'
 	)
 	
-	
+	t_ignore = ''
 	t_create_ignore = ''
 	t_out_ignore = ''
 	
@@ -42,28 +42,17 @@ class Lexer():
 		t.lexer.begin('out')
 		return t
 	
+	def t_ANY_NL(self, t):
+		r'\n'
+		t.lexer.begin('INITIAL')
+		return t
+	
 	def t_newline(self, t):
 		r'\n+'
 		t.lexer.lineno += t.value.count('\n')
 		t.lexer.begin('INITIAL')
 		return t
 		
-	
-		
-	def t_out_JOIN(self, t):
-		r'(\sjoin\s)'
-		return t
-	
-	def t_out_VAR(self, t):
-		r'[a-zA-Z\.\_][a-zA-Z0-9\.\_]*'
-		return t
-	
-	def t_out_newline(self, t):
-		r'\n+'
-		t.lexer.lineno += t.value.count('\n')
-		t.lexer.begin('INITIAL')
-		return t
-	
 	def t_create_VAR(self, t):
 		r'[a-zA-Z\.\_][a-zA-Z0-9\.\_]*'
 		return t
@@ -77,6 +66,20 @@ class Lexer():
 		t.lexer.lineno += t.value.count('\n')
 		t.lexer.begin('INITIAL')
 		return t
+		
+	def t_out_JOIN(self, t):
+		r'(\sjoin\s)'
+		return t
+	
+	def t_out_VAR(self, t):
+		r'[a-zA-Z\.\_][a-zA-Z0-9\.\_]*'
+		return t
+	
+	def t_out_newline(self, t):
+		r'\n+'
+		t.lexer.lineno += t.value.count('\n')
+		t.lexer.begin('INITIAL')
+		return t	
 	
 	def t_ANY_UNKNOWN(self, t):
 		r'.+'
@@ -84,7 +87,7 @@ class Lexer():
 
 	def t_ANY_error(self, t):
 		sys.stderr.write("Illegal character '%s'\n" % t.value[0])
-    	# t.lexer.skip(1)
+		t.lexer.skip(1)
 		t.lexer.begin('INITIAL')
 		
 	'''	
@@ -108,5 +111,3 @@ if __name__ == '__main__':
 		print(tok)
 	
 		
-	
-	
