@@ -34,6 +34,7 @@ Gnd {
 Error 
 Entry {
 	reset_out_flag();
+	unacceptable();
 }
 {
 	Default nil {}
@@ -120,6 +121,7 @@ Acceptable {
 Error 
 Entry {
 	reset_create_flag();
+	unacceptable();
 }
 {
 	Default nil {}
@@ -169,6 +171,7 @@ Entry {
 Error 
 Entry {
 	reset_join_flag();
+	unacceptable();
 }
 {
 	Default nil {}

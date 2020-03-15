@@ -109,6 +109,7 @@ class MainMap_Error(MainMap_Default):
     def Entry(self, fsm):
         ctxt = fsm.getOwner()
         ctxt.reset_out_flag()
+        ctxt.unacceptable()
 
     def Default(self, fsm):
         # No actions.
@@ -289,6 +290,7 @@ class CreateMap_Error(CreateMap_Default):
     def Entry(self, fsm):
         ctxt = fsm.getOwner()
         ctxt.reset_create_flag()
+        ctxt.unacceptable()
 
     def Default(self, fsm):
         # No actions.
@@ -390,6 +392,7 @@ class JoinMap_Error(JoinMap_Default):
     def Entry(self, fsm):
         ctxt = fsm.getOwner()
         ctxt.reset_join_flag()
+        ctxt.unacceptable()
 
     def Default(self, fsm):
         # No actions.

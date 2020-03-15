@@ -14,6 +14,7 @@ class Detector:
         self._cmd = []
         self._counter = 0
         self._join = []
+        self._acceptable = True
 
     def set_create_flag(self):
         self._create_flag = True
@@ -72,10 +73,15 @@ class Detector:
 
     def other_var_update(self, lt):
         self._other_var.append(lt)
+        
+    def unacceptable(self):
+        self._acceptable = False
 
     def checkstring(self, string):
         self._fsm.enterStartState()
         for c in string:
+            if not self._acceptable:
+                return False, False, False
             if c.isdigit():
                 self._fsm.digit(c)
             elif c.isalpha() or c == '.' or c == '_':
