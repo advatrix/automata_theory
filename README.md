@@ -12,7 +12,10 @@ A finite state machine-based recognizer of strings that match patterns:
 
 **generator** - generator of srings to check the program. Some strings match the patterns, others have mistakes. Uses exrex.
 
+
 The recognizer is implemented three different ways:
 **regex_analyzer** - regular expressions (Python)
+
 **smc** - State Machine Compiler (Python)
+
 **ply** - Python Lexer-Yacc
