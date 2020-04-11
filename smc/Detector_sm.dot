@@ -1,0 +1,174 @@
+digraph Detector {
+
+    node
+        [shape=Mrecord width=1.5];
+
+    subgraph cluster_MainMap {
+
+        label="MainMap";
+
+        //
+        // States (Nodes)
+        //
+
+        "MainMap::Gnd"
+            [label="{Gnd|letter(lt: String)/\l&nbsp;&nbsp;&nbsp;inc_counter();\l&nbsp;&nbsp;&nbsp;cmd_update(lt);\ldigit(lt: String)\l\[ctxt.counter()\]/\l&nbsp;&nbsp;&nbsp;inc_counter();\l&nbsp;&nbsp;&nbsp;cmd_update(lt);\l}"];
+
+        "MainMap::Error"
+            [label="{Error|Entry/\l&nbsp;&nbsp;&nbsp;reset_out_flag();\l|Default()/\l}"];
+
+        "MainMap::Acceptable"
+            [label="{Acceptable}"];
+
+        "MainMap::Gnd::JoinMap"
+            [label="{JoinMap|O-O\r}"]
+
+        "MainMap::Gnd::CreateMap"
+            [label="{CreateMap|O-O\r}"]
+
+        "%start"
+            [label="" shape=circle style=filled fillcolor=black width=0.25];
+
+    }
+
+    subgraph cluster_CreateMap {
+
+        label="CreateMap";
+
+        //
+        // States (Nodes)
+        //
+
+        "CreateMap::Gnd"
+            [label="{Gnd|Entry/\l&nbsp;&nbsp;&nbsp;set_create_flag();\l&nbsp;&nbsp;&nbsp;reset_counter();\lExit/\l&nbsp;&nbsp;&nbsp;reset_create_flag();\l|letter(lt: String)/\l&nbsp;&nbsp;&nbsp;var_update(lt);\l&nbsp;&nbsp;&nbsp;inc_counter();\ldigit(lt: String)\l\[ctxt.counter()\]/\l&nbsp;&nbsp;&nbsp;var_update(lt);\l&nbsp;&nbsp;&nbsp;inc_counter();\l}"];
+
+        "CreateMap::Args"
+            [label="{Args|Entry/\l&nbsp;&nbsp;&nbsp;set_create_flag();\l|letter(lt: String)/\l&nbsp;&nbsp;&nbsp;arg_update(lt);\l&nbsp;&nbsp;&nbsp;inc_counter();\ldigit(lt: String)\l\[ctxt.counter()\]/\l&nbsp;&nbsp;&nbsp;arg_update(lt);\l&nbsp;&nbsp;&nbsp;inc_counter();\lcomma()\l\[ctxt.counter()\]/\l&nbsp;&nbsp;&nbsp;arg_append();\l&nbsp;&nbsp;&nbsp;reset_counter();\l}"];
+
+        "CreateMap::Acceptable"
+            [label="{Acceptable|EOS()/\l}"];
+
+        "CreateMap::Error"
+            [label="{Error|Entry/\l&nbsp;&nbsp;&nbsp;reset_create_flag();\l|Default()/\l}"];
+
+        "CreateMap::Gnd::JoinMap"
+            [label="{JoinMap|O-O\r}"]
+
+        "push(CreateMap::Gnd)"
+            [label="" shape=plaintext];
+
+    }
+
+    subgraph cluster_JoinMap {
+
+        label="JoinMap";
+
+        //
+        // States (Nodes)
+        //
+
+        "JoinMap::Gnd"
+            [label="{Gnd|Entry/\l&nbsp;&nbsp;&nbsp;set_join_flag();\l|letter(lt: String)/\l&nbsp;&nbsp;&nbsp;join_update(lt);\l}"];
+
+        "JoinMap::OtherVar"
+            [label="{OtherVar|Entry/\l&nbsp;&nbsp;&nbsp;set_join_flag();\l|letter(lt: String)/\l&nbsp;&nbsp;&nbsp;other_var_update(lt);\l&nbsp;&nbsp;&nbsp;inc_counter();\ldigit(lt: String)\l\[ctxt.counter()\]/\l&nbsp;&nbsp;&nbsp;other_var_update(lt);\l&nbsp;&nbsp;&nbsp;inc_counter();\l}"];
+
+        "JoinMap::Error"
+            [label="{Error|Entry/\l&nbsp;&nbsp;&nbsp;reset_join_flag();\l|Default()/\l}"];
+
+        "JoinMap::Acceptable"
+            [label="{Acceptable}"];
+
+        "push(JoinMap::OtherVar)"
+            [label="" shape=plaintext];
+
+        "push(JoinMap::Gnd)"
+            [label="" shape=plaintext];
+
+    }
+
+    //
+    // Transitions (Edges)
+    //
+
+    "MainMap::Gnd" -> "MainMap::Gnd::CreateMap"
+        [label="space()\l\[ctxt.cmd_is_create()\]/\lpush(CreateMap::Gnd)\l"];
+
+    "MainMap::Gnd" -> "MainMap::Gnd::JoinMap"
+        [label="space()\l\[ctxt.counter()\]/\lpush(JoinMap::Gnd)\l"];
+
+    "MainMap::Gnd" -> "MainMap::Acceptable"
+        [label="EOS()\l\[ctxt.counter()\]/\lset_out_flag();\l"];
+
+    "MainMap::Gnd" -> "MainMap::Error"
+        [label="Default()/\l"];
+
+    "MainMap::Acceptable" -> "MainMap::Error"
+        [label="Default()/\l"];
+
+    "MainMap::Gnd::JoinMap" -> "MainMap::Gnd"
+        [label="pop/"]
+
+    "MainMap::Gnd::CreateMap" -> "MainMap::Gnd"
+        [label="pop/"]
+
+    "%start" -> "MainMap::Gnd"
+
+    "CreateMap::Gnd" -> "CreateMap::Args"
+        [label="obracket()\l\[ctxt.counter()\]/\lreset_counter();\l"];
+
+    "CreateMap::Gnd" -> "CreateMap::Gnd::JoinMap"
+        [label="space()\l\[ctxt.var_is_join()\]/\lpush(JoinMap::OtherVar)\l"];
+
+    "CreateMap::Gnd" -> "CreateMap::Error"
+        [label="digit()/\l"];
+
+    "CreateMap::Gnd" -> "CreateMap::Error"
+        [label="Default()/\l"];
+
+    "CreateMap::Args" -> "CreateMap::Acceptable"
+        [label="cbracket()\l\[ctxt.args() or ctxt.counter()\]/\larg_append();\l"];
+
+    "CreateMap::Args" -> "CreateMap::Error"
+        [label="cbracket()/\l"];
+
+    "CreateMap::Args" -> "CreateMap::Error"
+        [label="space()/\l"];
+
+    "CreateMap::Args" -> "CreateMap::Error"
+        [label="digit()/\l"];
+
+    "CreateMap::Args" -> "CreateMap::Error"
+        [label="Default()/\l"];
+
+    "CreateMap::Acceptable" -> "CreateMap::Error"
+        [label="Default()/\l"];
+
+    "CreateMap::Gnd::JoinMap" -> "CreateMap::Gnd"
+        [label="pop/"]
+
+    "push(CreateMap::Gnd)" -> "CreateMap::Gnd"
+        [arrowtail=odot];
+
+    "JoinMap::Gnd" -> "JoinMap::OtherVar"
+        [label="space()\l\[ctxt.join_is_join()\]/\lreset_counter();\l"];
+
+    "JoinMap::Gnd" -> "JoinMap::Error"
+        [label="Default()/\l"];
+
+    "JoinMap::OtherVar" -> "JoinMap::Acceptable"
+        [label="EOS()\l\[ctxt.counter()\]/\lreset_counter();\l"];
+
+    "JoinMap::OtherVar" -> "JoinMap::Error"
+        [label="Default()/\l"];
+
+    "JoinMap::Acceptable" -> "JoinMap::Error"
+        [label="Default()/\l"];
+
+    "push(JoinMap::OtherVar)" -> "JoinMap::OtherVar"
+        [arrowtail=odot];
+
+    "push(JoinMap::Gnd)" -> "JoinMap::Gnd"
+        [arrowtail=odot];
+
+}

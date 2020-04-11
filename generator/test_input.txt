@@ -1,0 +1,4 @@
+[a-z][A-Z][0-9]*
+1000
+test_output.txt
+0.8

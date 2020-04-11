@@ -1,0 +1,4 @@
+(?i)(create [a-zA-Z\._][a-zA-Z0-9\._]*\([a-zA-Z\._][a-zA-Z0-9\._]*(,[a-zA-Z\._][a-zA_Z0-9\._]*)*\))|([a-zA-Z\._][a-zA-Z0-9\._]*( join [a-zA-Z\._][a-zA_Z0-9\._]*)?)
+1000000
+output.txt
+0.8
