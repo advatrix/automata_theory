@@ -11,7 +11,7 @@ A finite state machine-based recognizer of strings that match patterns:
 
 ## Structure
 
-**generator** - generator of srings to check the program. Some strings match the patterns, others have mistakes. Uses exrex.
+**generator** - generator of srings to check the program. Some strings match the patterns, others have mistakes to check recognizer's work. Uses exrex.
 
 
 The recognizer is implemented three different ways:
@@ -33,6 +33,8 @@ The recognizer is implemented three different ways:
 `attributes` - непустой список атрибутов, где атрибут - строка литералов, не начинающаяся с цифры.
 
 ## Структура
+
+**generator** - генератор строк. Часть строк соответствует шаблонам, часть создаётся с намеренными ошибками для проверки работы распознавателя. Использует модуль **exrex**.
 
 Распознаватель разработан тремя путями (соответствуют директориям):
 
